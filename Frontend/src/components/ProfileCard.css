@@ -1,0 +1,341 @@
+/* ===== Profile Page - SkillSwap ===== */
+
+/* ===== Page Header ===== */
+.page-header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+}
+
+.page-header h2 {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 10px rgba(61, 59, 59, 0.3);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Optional: subtle underline accent */
+.page-header h2::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #e94560, #533483);
+  border-radius: 2px;
+  margin: 8px auto 0;
+}
+
+/* ===== Updated Profile Container ===== */
+.profile-container {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #e94560 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-top: 70px; /* Space for header */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating orbs stay behind */
+.profile-container::before,
+.profile-container::after,
+.orb-3 {
+  z-index: 0;
+}
+
+/* Card stays centered with header space */
+.profile-card {
+  z-index: 5;
+  margin-top: 0;
+}
+.profile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ambient glow */
+.profile-container::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ===== Profile Card ===== */
+.profile-card {
+  background: rgba(255, 255, 255, 0.97);
+  padding: 40px 32px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: cardAppear 0.5s ease-out;
+}
+
+/* Top accent bar */
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  border-radius: 0 0 4px 4px;
+}
+
+/* ===== Avatar ===== */
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #ec4899);
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  position: relative;
+}
+
+.profile-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, #6366f1, #ec4899) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* ===== Typography ===== */
+.profile-card h2 {
+  margin: 0 0 6px 0;
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.profile-card p {
+  color: #64748b;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* ===== Skills Section ===== */
+.skills {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  color: #bfbbbb;
+}
+
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.skill-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+
+/* Alternate badge colors for variety */
+.skill-badge:nth-child(2n) {
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.25);
+}
+
+.skill-badge:nth-child(2n):hover {
+  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+}
+
+.skill-badge:nth-child(3n) {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.25);
+}
+
+.skill-badge:nth-child(3n):hover {
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.35);
+}
+
+/* ===== Edit Button ===== */
+.edit-btn {
+  margin-top: 28px;
+  padding: 12px 28px;
+  border: none;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.edit-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.4);
+}
+
+.edit-btn:hover::after {
+  left: 100%;
+}
+
+.edit-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== Stats Row (optional, hidden if not in HTML) ===== */
+.profile-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin: 24px 0 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #222223;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* ===== Animations ===== */
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  .profile-container {
+    padding: 16px;
+  }
+  
+  .profile-card {
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+  
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .profile-card h2 {
+    font-size: 1.25rem;
+  }
+  
+  .skills {
+    gap: 6px;
+  }
+  
+  .skill-badge {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+  
+  .edit-btn {
+    width: 100%;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .profile-card {
+    padding: 24px 20px;
+  }
+  
+  .profile-stats {
+    gap: 20px;
+  }
+}
