@@ -1,10 +1,12 @@
 import { useState } from "react";
 import API from "../services/api";
 
+
 function EditProfileForm({ user, setEdit, refresh }) {
   const [bio, setBio] = useState(user.bio);
   const [skillsHave, setSkillsHave] = useState(user.skillsHave.join(", "));
   const [skillsWant, setSkillsWant] = useState(user.skillsWant.join(", "));
+
 
   const handleSubmit = async () => {
     try {
@@ -14,6 +16,7 @@ function EditProfileForm({ user, setEdit, refresh }) {
         skillsWant: skillsWant.split(",").map(s => s.trim())
       });
 
+
       setEdit(false);
       refresh();
     } catch (err) {
@@ -21,9 +24,11 @@ function EditProfileForm({ user, setEdit, refresh }) {
     }
   };
 
+
   return (
     <div>
       <h3>Edit Profile</h3>
+
 
       <input
         value={bio}
@@ -31,11 +36,13 @@ function EditProfileForm({ user, setEdit, refresh }) {
         placeholder="Bio"
       />
 
+
       <input
         value={skillsHave}
         onChange={(e) => setSkillsHave(e.target.value)}
         placeholder="Skills you have (comma separated)"
       />
+
 
       <input
         value={skillsWant}
@@ -43,12 +50,15 @@ function EditProfileForm({ user, setEdit, refresh }) {
         placeholder="Skills you want (comma separated)"
       />
 
+
       <br />
+
 
       <button onClick={handleSubmit}>Save</button>
       <button onClick={() => setEdit(false)}>Cancel</button>
     </div>
   );
 }
+
 
 export default EditProfileForm;
