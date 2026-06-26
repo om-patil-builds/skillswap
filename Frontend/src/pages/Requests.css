@@ -1,47 +1,163 @@
-.requests-container {
-  padding: 20px;
-  min-height: 100vh;
-  background: linear-gradient(to right, #141e30, #243b55);
-  color: white;
+/* Requests Page Styles */
+
+.requests-page {
+  padding-top: 10px;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
-
-.empty {
-  text-align: center;
-  opacity: 0.7;
-}
-
-.request-card {
-  background: rgba(255,255,255,0.1);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  display: flex;
-  justify-content: space-between;
+.requests-page-header {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+  display: inline-flex;
   align-items: center;
+  gap: 12px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 8px;
 }
 
-.user-info h3 {
-  margin: 0;
+.empty-requests-state {
+  text-align: center;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 500px;
+  margin: 40px auto;
 }
 
-.actions button {
-  margin-left: 10px;
-  padding: 6px 12px;
-  border: none;
+.empty-icon {
+  color: var(--text-muted);
+  animation: logo-float 2.5s ease-in-out infinite alternate;
+}
+
+.empty-requests-state h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.empty-requests-state p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Grid Layout */
+.requests-grid-modern {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Card Modern Design */
+.request-card-modern {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  justify-content: space-between;
+  height: 250px;
+}
+
+.request-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.request-avatar-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.request-details h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.request-email {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.request-skills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.skills-title-small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.skills-list-small {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 52px;
+  overflow: hidden;
+}
+
+.skill-chip-small {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  cursor: pointer;
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-.accept {
-  background: #4caf50;
-  color: white;
+.no-skills-small {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
-.reject {
-  background: red;
-  color: white;
+.request-actions-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.request-reject-btn,
+.request-accept-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.85rem;
+  border-radius: var(--radius-lg);
+}
+
+.request-reject-btn {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.1);
+}
+
+.request-reject-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.2);
 }

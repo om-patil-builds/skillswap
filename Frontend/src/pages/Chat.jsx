@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import "./Chat.css";
 import socket from "../socket";
+import { ArrowLeft, Calendar, Send, Trash2, ShieldAlert } from "lucide-react";
 
 function Chat() {
   const { userId } = useParams();
@@ -209,44 +210,55 @@ function Chat() {
 
   // ui
   return (
-    <div className="chat-container">
+    <div className="chat-container-modern glass-card">
       {/* HEADER */}
-      <div className="chat-header">
-        <div className="header-left">
-          <button className="back-btn" onClick={() => navigate("/dashboard")}>
-            ←
+      <div className="chat-header-modern">
+        <div className="header-left-modern">
+          <button className="chat-back-btn" onClick={() => navigate("/dashboard")} aria-label="Go back">
+            <ArrowLeft size={20} />
           </button>
 
-          {/* <div className="header-avatar">
+          <div className="chat-header-avatar">
             {userName?.charAt(0)?.toUpperCase()}
-          </div> */}
-
-          <div className="header-info">
-            <span className="header-name">{userName}</span>
-
-            <span className="header-status">
-              {typing ? "typing..." : isOnline ? "Online" : "Offline"}
-            </span>
           </div>
-          <button
-            onClick={() =>
-              navigate("/sessions", {
-                state: {
-                  learnerId: userId,
-                  learnerName: userName,
-                },
-              })
-            }
-          >
-            Schedule Session 📅
-          </button>
+
+          <div className="chat-header-info">
+            <span className="chat-header-name">{userName}</span>
+            <div className="chat-header-status-wrapper">
+              <span className={`status-dot ${isOnline ? "online" : "offline"}`} />
+              <span className="chat-header-status">
+                {typing ? "typing..." : isOnline ? "Online" : "Offline"}
+              </span>
+            </div>
+          </div>
         </div>
+        
+        <button
+          className="premium-btn premium-btn-secondary schedule-session-btn"
+          onClick={() =>
+            navigate("/sessions", {
+              state: {
+                learnerId: userId,
+                learnerName: userName,
+              },
+            })
+          }
+        >
+          <Calendar size={16} />
+          <span>Schedule Session</span>
+        </button>
       </div>
 
       {/* MESSAGES */}
-      <div className="chat-messages" onClick={() => setSelectedMsg(null)}>
+      <div className="chat-messages-modern" onClick={() => setSelectedMsg(null)}>
         {loading ? (
-          <div className="loading-state">Loading...</div>
+          <div className="loading-state">Loading chat history...</div>
+        ) : messages.length === 0 ? (
+          <div className="chat-empty-state">
+            <MessageSquare size={48} className="empty-icon" />
+            <p>No messages yet</p>
+            <span>Start the conversation by sending a message below.</span>
+          </div>
         ) : (
           messages.map((msg) => {
             const mine = isMe(msg.sender);
@@ -254,56 +266,56 @@ function Chat() {
             return (
               <div
                 key={msg._id}
-                className={`msg-row ${mine ? "msg-sent" : "msg-received"}`}
+                className={`msg-row-modern ${mine ? "msg-sent" : "msg-received"}`}
               >
                 {/* AVATAR */}
-                <div className="msg-avatar">
-                  {mine ? "M" : userName?.charAt(0)?.toUpperCase()}
+                <div className="msg-avatar-circle">
+                  {mine ? currentUserName?.charAt(0)?.toUpperCase() : userName?.charAt(0)?.toUpperCase()}
                 </div>
 
                 {/* BODY */}
-                <div className="msg-body">
-                  {/* NAME */}
-                  <div className="msg-sender-name">
-                    {mine ? "Me" : msg.sender?.username || userName}
-                  </div>
-
+                <div className="msg-body-modern">
                   {/* MESSAGE */}
                   <div
-                    className="msg-bubble"
+                    className="msg-bubble-modern"
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedMsg(selectedMsg === msg._id ? null : msg._id);
                     }}
                   >
-                    <div className="msg-text">
+                    <div className="msg-text-content">
                       {msg.isDeleted ? (
-                        <i>This message was deleted</i>
+                        <span className="deleted-message-text">
+                          <ShieldAlert size={14} style={{ marginRight: "4px", verticalAlign: "middle" }} />
+                          <i>This message was deleted</i>
+                        </span>
                       ) : (
                         msg.message
                       )}
                     </div>
 
-                    <div className="msg-footer">
-                      <span className="msg-time">
+                    <div className="msg-footer-info">
+                      <span className="msg-time-label">
                         {formatTime(msg.createdAt)}
                       </span>
-
-                      {mine && <span className="msg-tick">✓✓</span>}
+                      {mine && <span className="msg-status-tick">✓✓</span>}
                     </div>
 
                     {/* DELETE MENU */}
-                    {selectedMsg === msg._id && (
-                      <div className="msg-delete-menu">
-                        <button onClick={() => deleteMessageForMe(msg._id)}>
-                          Delete for Me
+                    {selectedMsg === msg._id && !msg.isDeleted && (
+                      <div className="msg-delete-dropdown glass-card">
+                        <button className="delete-option" onClick={() => deleteMessageForMe(msg._id)}>
+                          <Trash2 size={14} />
+                          <span>Delete for Me</span>
                         </button>
 
                         {mine && (
                           <button
+                            className="delete-option everyone"
                             onClick={() => deleteMessageForEveryone(msg._id)}
                           >
-                            Delete for Everyone
+                            <Trash2 size={14} />
+                            <span>Delete for Everyone</span>
                           </button>
                         )}
                       </div>
@@ -317,16 +329,17 @@ function Chat() {
 
         {/* TYPING */}
         {typing && (
-          <div className="msg-row msg-received">
-            <div className="msg-avatar">
+          <div className="msg-row-modern msg-received">
+            <div className="msg-avatar-circle">
               {userName?.charAt(0)?.toUpperCase()}
             </div>
-
-            <div className="msg-body">
-              <div className="msg-sender-name">{userName}</div>
-
-              <div className="msg-bubble">
-                <div className="msg-text">typing...</div>
+            <div className="msg-body-modern">
+              <div className="msg-bubble-modern typing-bubble">
+                <span className="typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
               </div>
             </div>
           </div>
@@ -336,16 +349,22 @@ function Chat() {
       </div>
 
       {/* INPUT */}
-      <div className="chat-input">
+      <div className="chat-input-bar-modern">
         <input
+          className="chat-input-field"
           value={text}
           onChange={(e) => handleTyping(e.target.value)}
-          placeholder="Type message..."
+          placeholder="Write a message..."
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
 
-        <button className="send-btn" onClick={sendMessage} disabled={sending}>
-          ➤
+        <button 
+          className="premium-btn premium-btn-primary chat-send-btn" 
+          onClick={sendMessage} 
+          disabled={sending || !text.trim()}
+          aria-label="Send message"
+        >
+          <Send size={16} />
         </button>
       </div>
     </div>

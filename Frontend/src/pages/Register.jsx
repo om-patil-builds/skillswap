@@ -2,57 +2,104 @@ import { useState } from "react";
 import API from "../services/api";
 import "./form.css"; // same styling reuse
 import { useNavigate } from "react-router-dom";
-
+import { Mail, Lock, User, UserPlus } from "lucide-react";
 
 function Register() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    if (!username || !email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await API.post("/auth/register", {
         username,
         email,
-        password
+        password,
       });
 
-      alert("Registration successful");
+      alert("Registration successful! Redirecting to login...");
       console.log(res.data);
+      navigate("/");
     } catch (err) {
       console.log(err);
-      alert("Registration failed");
+      alert(err.response?.data?.message || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Create Account 🚀</h2>
+        <h2>Create Account ⚡</h2>
+        <p className="subtitle">Join our community of skills swappers</p>
 
-        <input
-          type="text"
-          placeholder="Enter Username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <form onSubmit={handleRegister}>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Enter Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <User className="icon" size={18} />
+          </div>
 
-        <input
-          type="email"
-          placeholder="Enter Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <Mail className="icon" size={18} />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <div className="form-group">
+            <input
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <Lock className="icon" size={18} />
+          </div>
 
-        <button onClick={handleRegister}>Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              "Registering..."
+            ) : (
+              <>
+                <span>Register</span>
+                <UserPlus size={18} style={{ marginLeft: "8px" }} />
+              </>
+            )}
+          </button>
+        </form>
 
-        <p onClick={() => navigate("/")} style={{ cursor: "pointer", color: "red" }}>
-         Already have an account? Login
+        <p className="footer-text">
+          Already have an account?{" "}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          >
+            Login
+          </a>
         </p>
       </div>
     </div>

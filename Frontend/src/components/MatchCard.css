@@ -217,238 +217,154 @@
    BUTTON — Premium CTA Design
    ============================================ */
 
-.match-card button {
-  position: relative;
-  margin-top: clamp(12px, 2vw, 20px);
-  padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px);
-  border: none;
-  background: linear-gradient(135deg, var(--mc-primary), var(--mc-primary-dark));
+/* ============================================
+   MATCH CARD LAYOUT ELEMENTS
+   ============================================ */
+
+.match-card-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--mc-primary) 0%, var(--mc-primary-light) 100%);
   color: white;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: clamp(13px, 1.3vw, 15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: var(--mc-transition);
+  font-size: 1.5rem;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.match-card-username {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+  color: var(--mc-text-primary);
+}
+
+.match-card-bio {
+  font-size: 0.9rem;
+  color: var(--mc-text-secondary);
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  isolation: isolate;
-  box-shadow: 
-    0 4px 14px rgba(99, 102, 241, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.skills-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.skills-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skills-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--mc-text-secondary);
+}
+
+.skills-group-icon {
+  opacity: 0.8;
+}
+
+.have-icon {
+  color: var(--mc-accent-green);
+}
+
+.want-icon {
+  color: var(--mc-accent-orange);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.no-skills-placeholder {
+  font-size: 0.85rem;
+  color: var(--mc-text-secondary);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+.match-card-action {
   width: 100%;
-  
-  /* Flex centering for icon support */
+}
+
+.match-card-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-}
-
-/* Shine effect */
-.match-card button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
   width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.6s ease;
-  z-index: -1;
-}
-
-.match-card button:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(99, 102, 241, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  background: linear-gradient(135deg, var(--mc-primary-light), var(--mc-primary));
-}
-
-.match-card button:hover::before {
-  left: 100%;
-}
-
-.match-card button:active {
-  transform: translateY(0) scale(0.98);
-  transition-duration: 0.1s;
-}
-
-/* Focus state for accessibility */
-.match-card button:focus-visible {
-  outline: 2px solid var(--mc-primary);
-  outline-offset: 3px;
-}
-
-/* ============================================
-   RESPONSIVE BREAKPOINTS
-   ============================================ */
-
-/* 📱 Mobile (up to 480px) */
-@media (max-width: 480px) {
-  .match-card {
-    padding: 16px;
-    margin: 8px 0;
-    border-radius: 16px;
-  }
-  
-  .match-badge {
-    font-size: 10px;
-    padding: 3px 8px;
-  }
-  
-  .skill {
-    font-size: 11px;
-    padding: 4px 10px;
-  }
-  
-  .match-card button {
-    font-size: 13px;
-    padding: 12px 20px;
-  }
-}
-
-/* 📱 Tablet (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .match-card {
-    padding: 20px;
-  }
-}
-
-/* 💻 Desktop (769px+) */
-@media (min-width: 769px) {
-  .match-card {
-    max-width: 420px;
-  }
-}
-
-/* 🖥️ Large Screens */
-@media (min-width: 1200px) {
-  .match-card {
-    max-width: 480px;
-  }
-}
-
-/* ============================================
-   DARK MODE SUPPORT (Optional)
-   ============================================ */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --mc-bg: #0f172a;
-    --mc-surface: rgba(30, 41, 59, 0.8);
-    --mc-text-primary: #f1f5f9;
-    --mc-text-secondary: #94a3b8;
-    --mc-border: rgba(148, 163, 184, 0.1);
-    --mc-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --mc-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  }
-  
-  .match-card {
-    background-image: 
-      radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-  }
-}
-
-/* ============================================
-   REDUCED MOTION SUPPORT
-   ============================================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .match-card,
-  .match-card::before,
-  .match-badge,
-  .skill,
-  .match-card button {
-    animation: none !important;
-    transition: none !important;
-  }
-  
-  .match-card:hover {
-    transform: none;
-  }
-}
-
-/* ============================================
-   GRID LAYOUT HELPER (Use this in parent)
-   ============================================ */
-
-.matches-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  gap: clamp(16px, 3vw, 24px);
-  padding: clamp(16px, 4vw, 40px);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* Optional: Staggered entrance animation */
-@keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.match-card {
-  animation: card-enter 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
-}
-
-/* Stagger delay for grid items */
-.matches-grid .match-card:nth-child(1) { animation-delay: 0s; }
-.matches-grid .match-card:nth-child(2) { animation-delay: 0.1s; }
-.matches-grid .match-card:nth-child(3) { animation-delay: 0.2s; }
-.matches-grid .match-card:nth-child(4) { animation-delay: 0.3s; }
-.matches-grid .match-card:nth-child(5) { animation-delay: 0.4s; }
-.matches-grid .match-card:nth-child(6) { animation-delay: 0.5s; }
-
-
-.btn {
-  margin-top: 10px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: inherit;
   border: none;
   cursor: pointer;
-  font-weight: 500;
+  transition: var(--mc-transition);
 }
 
-/* Different states */
-.connect {
-  background: #4cafef;
+.connect-btn {
+  background: linear-gradient(135deg, var(--mc-primary) 0%, var(--mc-primary-dark) 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
-.pending {
-  background: gray;
-  color: white;
+.connect-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
+}
+
+.pending-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--mc-text-secondary);
+  border: 1px solid var(--mc-border);
   cursor: not-allowed;
 }
 
-.accept {
-  background: orange;
+.accept-btn {
+  background: linear-gradient(135deg, var(--mc-accent-orange) 0%, #d97706 100%);
   color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
-.chat {
-  background: #4caf50;
-  color: white;
+.accept-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.45);
 }
 
+.chat-btn {
+  background: linear-gradient(135deg, var(--mc-accent-green) 0%, #059669 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
 
-.matches-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  padding: 20px;
+.chat-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+}
+
+.match-card-btn:active {
+  transform: translateY(0);
 }

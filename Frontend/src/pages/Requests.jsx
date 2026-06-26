@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { Check, X, Bell, Mail, BookOpen } from "lucide-react";
 import "./Requests.css";
 
 function Requests() {
@@ -29,45 +30,80 @@ function Requests() {
       setRequests((prev) => prev.filter((r) => r._id !== id));
     } catch (err) {
       console.log(err);
+      alert("Failed to update request status. Please try again.");
     }
   };
 
   return (
-    <div className="requests-container">
-      <h2>Requests 🔔</h2>
+    <div className="requests-page">
+      <h2 className="requests-page-header gradient-heading">
+        <Bell size={28} />
+        <span>Pending Requests</span>
+      </h2>
 
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading-state">Loading requests...</div>
       ) : requests.length === 0 ? (
-        <p className="empty">No pending requests</p>
+        <div className="empty-requests-state glass-card">
+          <Bell size={48} className="empty-icon" />
+          <h3>All caught up!</h3>
+          <p>You have no pending connection requests at the moment.</p>
+        </div>
       ) : (
-        requests.map((req) => (
-          <div key={req._id} className="request-card">
-            
-            <div className="user-info">
-              <h3>{req.sender.username}</h3>
-              <p>{req.sender.email}</p>
-              <p><b>Skills:</b> {req.sender.skillsHave?.join(", ")}</p>
+        <div className="requests-grid-modern">
+          {requests.map((req) => (
+            <div key={req._id} className="request-card-modern glass-card">
+              <div className="request-card-top">
+                <div className="request-avatar-circle">
+                  {req.sender.username.charAt(0).toUpperCase()}
+                </div>
+                <div className="request-details">
+                  <h3>{req.sender.username}</h3>
+                  <div className="request-email">
+                    <Mail size={14} />
+                    <span>{req.sender.email}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="request-skills-section">
+                <div className="skills-title-small">
+                  <BookOpen size={14} />
+                  <span>Teaches:</span>
+                </div>
+                <div className="skills-list-small">
+                  {req.sender.skillsHave && req.sender.skillsHave.length > 0 ? (
+                    req.sender.skillsHave.map((skill, i) => (
+                      <span key={i} className="skill-chip-small">
+                        {skill}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="no-skills-small">None listed</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="request-actions-group">
+                <button
+                  className="premium-btn premium-btn-secondary request-reject-btn"
+                  onClick={() => handleAction(req._id, "rejected")}
+                >
+                  <X size={16} />
+                  <span>Decline</span>
+                </button>
+                
+                <button
+                  className="premium-btn premium-btn-primary request-accept-btn"
+                  onClick={() => handleAction(req._id, "accepted")}
+                >
+                  <Check size={16} />
+                  <span>Accept</span>
+                </button>
+              </div>
             </div>
-
-            <div className="actions">
-              <button
-                className="accept"
-                onClick={() => handleAction(req._id, "accepted")}
-              >
-                Accept ✔
-              </button>
-
-              <button
-                className="reject"
-                onClick={() => handleAction(req._id, "rejected")}
-              >
-                Reject ❌
-              </button>
-            </div>
-
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );

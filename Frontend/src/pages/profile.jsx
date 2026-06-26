@@ -21,11 +21,11 @@ function Profile() {
     fetchProfile();
   }, []);
 
-  if (!user) return <p className="loading">Loading profile...</p>;
+  if (!user) return <div className="loading-state">Loading profile...</div>;
 
   return (
     <div className="profile-page">
-      <h2 className="page-header">My Profile 👤</h2>
+      <h2 className="profile-page-header gradient-heading">My Profile 👤</h2>
 
       {edit ? (
         <EditProfileForm

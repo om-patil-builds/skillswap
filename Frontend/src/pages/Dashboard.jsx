@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import "./Dashboard.css";
 import MatchCard from "../components/MatchCard";
+import { Bell, Sparkles } from "lucide-react";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -119,89 +120,72 @@ function Dashboard() {
     loadData();
   }, []);
 
-  // 🔹 Logout
-  const handleLogout = async () => {
-    try {
-      await API.post("/auth/logout");
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   // 🔹 Loading UI
   if (loading) {
-    return <p className="loading">Loading...</p>;
+    return <div className="loading-state">Loading matches...</div>;
   }
 
   return (
     <div className="dashboard-container">
       {/* Header */}
-      <div className="dashboard-header">
-        <h1>SkillSwap 💬</h1>
+      <div className="dashboard-header-modern">
+        <div>
+          <h1 className="dashboard-title-modern">
+            Explore Matches <Sparkles className="title-sparkle" size={24} />
+          </h1>
+          <p className="dashboard-subtitle-modern">Find other developers to swap skills and build projects with</p>
+        </div>
 
         <div className="header-action">
           <div className="notification-wrapper">
             <button
-              className="notification-btn"
+              className="notification-btn-modern"
               onClick={() => setShowNotifications(!showNotifications)}
+              aria-label="View notifications"
             >
-              🔔
+              <Bell size={20} />
               {notifications.filter((n) => !n.read).length > 0 && (
-                <span className="notification-count">
+                <span className="notification-count-modern">
                   {notifications.filter((n) => !n.read).length}
                 </span>
               )}
             </button>
 
             {showNotifications && (
-              <div className="notification-dropdown">
-                {notifications.length === 0 ? (
-                  <p>No notifications</p>
-                ) : (
-                  notifications.map((n) => (
-                    <div
-                      key={n._id}
-                      className={`notification-item ${n.read ? "" : "unread"}`}
-                    >
-                      {n.text}
-                    </div>
-                  ))
-                )}
+              <div className="notification-dropdown-modern glass-card">
+                <div className="dropdown-header">
+                  <h4>Notifications</h4>
+                </div>
+                <div className="dropdown-list">
+                  {notifications.length === 0 ? (
+                    <p className="no-notifications">No new notifications</p>
+                  ) : (
+                    notifications.map((n) => (
+                      <div
+                        key={n._id}
+                        className={`notification-item-modern ${n.read ? "" : "unread"}`}
+                      >
+                        <p>{n.text}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             )}
           </div>
-          <button className="logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
         </div>
       </div>
 
-      {/* Chats Section */}
-      {/* <h2 className="chat-title">Your Chats</h2>
-
-      {chats.length === 0 ? (
-        <p className="no-chat">No chats yet</p>
-      ) : (
-        chats.map((chat) => (
-          <div
-            key={chat._id}
-            className="chat-card"
-            onClick={() => navigate(`/chat/${chat.otherUserId}`)}
-          >
-            <p>
-              <b>User:</b> {chat.otherUserId}
-            </p>
-            <p>{chat.lastMessage}</p>
-          </div>
-        ))
-      )} */}
-
       {/* Matches Section */}
-      <h2 className="chat-title">Suggested Users 🔥</h2>
-
       {matches.length === 0 ? (
-        <p className="no-chat">No matches found</p>
+        <div className="no-matches-state glass-card">
+          <Sparkles size={48} className="no-matches-icon" />
+          <h3>No matches found yet</h3>
+          <p>Try updating your profile details to match with other skill swappers.</p>
+          <button className="premium-btn premium-btn-primary" onClick={() => navigate("/profile")}>
+            Update Profile
+          </button>
+        </div>
       ) : (
         <div className="matches-grid">
           {matches.map((user) => (
@@ -214,11 +198,6 @@ function Dashboard() {
           ))}
         </div>
       )}
-
-      {/* Navigation Buttons */}
-      <button onClick={() => navigate("/profile")}>Go to Profile</button>
-      <button onClick={() => navigate("/requests")}>Requests 🔔</button>
-      <button onClick={() => navigate("/connections")}>Connections 🤝</button>
     </div>
   );
 }
