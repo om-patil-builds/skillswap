@@ -18,8 +18,18 @@ function Register() {
         password
       });
 
+      console.log("REGISTER:", res.data);
+
+      // Reuse the same auth storage logic as Login
+      const user = res.data.user || res.data;
+
+      localStorage.setItem("userId", user._id || user.id);
+      localStorage.setItem("userName", user.username);
+
+      console.log("SAVED USER ID:", localStorage.getItem("userId"));
+
       alert("Registration successful");
-      console.log(res.data);
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
       alert("Registration failed");
