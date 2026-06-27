@@ -232,9 +232,11 @@ function Dashboard() {
       )}
 
       {/* Navigation Buttons */}
-      <button onClick={() => navigate("/profile")}>Go to Profile</button>
-      <button onClick={() => navigate("/requests")}>Requests 🔔</button>
-      <button onClick={() => navigate("/connections")}>Connections 🤝</button>
+      <nav className="dashboard-nav">
+        <button onClick={() => navigate("/profile")}>Go to Profile</button>
+        <button onClick={() => navigate("/requests")}>Requests 🔔</button>
+        <button onClick={() => navigate("/connections")}>Connections 🤝</button>
+      </nav>
     </div>
   );
 }
