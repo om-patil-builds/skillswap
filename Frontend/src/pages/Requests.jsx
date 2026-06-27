@@ -18,6 +18,15 @@ function Requests() {
   };
 
   useEffect(() => {
+    // 🔔 Mark all unread notifications as read when user opens the Requests page
+    const markNotificationsRead = async () => {
+      try {
+        await API.put("/notifications/read-all");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    markNotificationsRead();
     fetchRequests();
   }, []);
 

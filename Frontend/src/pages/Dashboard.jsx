@@ -65,6 +65,24 @@ function Dashboard() {
     }
   };
 
+  // 🔔 Toggle dropdown only — do NOT mark anything as read here
+  const handleBellClick = () => {
+    setShowNotifications((prev) => !prev);
+  };
+
+  // 🔔 Mark one notification as read when the user clicks it, then go to Requests
+  const handleNotificationClick = async (notificationId) => {
+    try {
+      await API.put(`/notifications/${notificationId}/read`);
+      // Remove from local list so badge updates immediately
+      setNotifications((prev) => prev.filter((n) => n._id !== notificationId));
+      setShowNotifications(false);
+      navigate("/requests");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     fetchNotifications();
   }, []);
@@ -142,14 +160,11 @@ function Dashboard() {
 
         <div className="header-action">
           <div className="notification-wrapper">
-            <button
-              className="notification-btn"
-              onClick={() => setShowNotifications(!showNotifications)}
-            >
+            <button className="notification-btn" onClick={handleBellClick}>
               🔔
-              {notifications.filter((n) => !n.read).length > 0 && (
+              {notifications.length > 0 && (
                 <span className="notification-count">
-                  {notifications.filter((n) => !n.read).length}
+                  {notifications.length}
                 </span>
               )}
             </button>
@@ -162,7 +177,8 @@ function Dashboard() {
                   notifications.map((n) => (
                     <div
                       key={n._id}
-                      className={`notification-item ${n.read ? "" : "unread"}`}
+                      className="notification-item unread"
+                      onClick={() => handleNotificationClick(n._id)}
                     >
                       {n.text}
                     </div>

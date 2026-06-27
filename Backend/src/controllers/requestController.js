@@ -1,6 +1,6 @@
 const Request = require("../models/request.model");
-
 const Notification = require("../models/notification.model");
+const User = require("../models/user.model");
 
 async function sendRequest(req, res) {
   try {
@@ -45,9 +45,13 @@ async function sendRequest(req, res) {
       status: "pending", // 🔥 explicitly set
     });
 
+    // 🔔 Fetch sender's username to include in the notification
+    const senderUser = await User.findById(senderId).select("username");
+    const senderName = senderUser ? senderUser.username : "Someone";
+
     await Notification.create({
       user: receiverId,
-      text: "You received a new skill request 🤝",
+      text: `${senderName} sent you a skill request 🤝`,
     });
 
     return res.status(201).json({
@@ -85,6 +89,27 @@ async function updateRequest(req, res) {
 
     request.status = status;
     await request.save();
+
+    // 🔔 Fetch User B's (acting user's) username for the notification text
+    const actingUser = await User.findById(userId).select("username");
+    const actingUsername = actingUser ? actingUser.username : "Someone";
+
+    // 🔔 Mark ALL of User B's unread notifications as read — they have acted
+    await Notification.updateMany(
+      { user: request.receiver, read: false },
+      { read: true }
+    );
+
+    // 🔔 Create a NEW notification for User A (the original sender)
+    const notificationText =
+      status === "accepted"
+        ? `${actingUsername} accepted your skill request ✅`
+        : `${actingUsername} rejected your skill request ❌`;
+
+    await Notification.create({
+      user: request.sender, // 🔔 Notify User A
+      text: notificationText,
+    });
 
     res.json({
       message: `Request ${status}`,
