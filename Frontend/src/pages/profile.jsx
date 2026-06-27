@@ -28,16 +28,9 @@ function Profile() {
       <h2 className="page-header">My Profile 👤</h2>
 
       {edit ? (
-        <EditProfileForm
-          user={user}
-          setEdit={setEdit}
-          refresh={fetchProfile}
-        />
+        <EditProfileForm user={user} setEdit={setEdit} />
       ) : (
-        <ProfileCard
-          user={user}
-          setEdit={setEdit}
-        />
+        <ProfileCard user={user} setEdit={setEdit} />
       )}
     </div>
   );
