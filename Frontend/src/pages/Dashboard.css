@@ -5,31 +5,31 @@
    ============================================ */
 :root {
   /* Surface & Background */
-  --bg: #f8f9fb;
+  --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-hover: #f1f3f8;
-  --surface-active: #e8ebf2;
-  --border: rgba(0, 0, 0, 0.06);
-  --border-hover: rgba(0, 0, 0, 0.12);
+  --surface-hover: #f1f5f9;
+  --surface-active: #e2e8f0;
+  --border: rgba(148, 163, 184, 0.12);
+  --border-hover: rgba(99, 102, 241, 0.25);
 
-  /* Indigo Accent */
+  /* Indigo Accent - SaaS Palette */
   --primary: #4f46e5;
   --primary-light: #6366f1;
-  --primary-lighter: #eef2ff;
-  --primary-dark: #4338ca;
+  --primary-lighter: #f0f2fe;
+  --primary-dark: #3730a3;
 
   /* Supporting */
-  --green: #059669;
+  --green: #10b981;
   --green-light: #ecfdf5;
-  --red: #dc2626;
+  --red: #ef4444;
   --red-light: #fef2f2;
-  --orange: #d97706;
+  --orange: #f59e0b;
   --orange-light: #fffbeb;
 
   /* Text */
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
   --text-inverse: #ffffff;
 
   /* Spacing scale (4px base) */
@@ -52,15 +52,15 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.02);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
 
   /* Transition */
-  --transition: 0.2s ease;
-  --transition-slow: 0.3s ease;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ============================================
@@ -77,7 +77,7 @@ html, body {
   width: 100%;
   overflow-x: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--bg);
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -105,25 +105,28 @@ html, body {
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  background: var(--bg);
-  padding: var(--space-4);
+  background: transparent;
+  /* padding bottom set to 40px so bottom buttons never touch the screen edge */
+  padding: var(--space-4) var(--space-4) 40px var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
 }
 
 /* ============================================
-   HEADER
+   HEADER & ACTIONS
    ============================================ */
 .dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.08);
   gap: var(--space-3);
   flex-wrap: wrap;
 }
@@ -131,7 +134,7 @@ html, body {
 .dashboard-header h1 {
   font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.5px;
   color: var(--text-primary);
   white-space: nowrap;
   line-height: 1.2;
@@ -144,32 +147,38 @@ html, body {
 }
 
 /* ============================================
-   NOTIFICATION BELL
+   NOTIFICATION BELL & OVERRIDES FOR LEAKED STYLES
    ============================================ */
 .notification-wrapper {
   position: relative;
 }
 
-.notification-btn {
-  position: relative;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: var(--radius-sm);
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background var(--transition), border-color var(--transition);
-  line-height: 1;
+/* Override leaking button:nth-of-type(1) styles from profile.css */
+button.notification-btn {
+  position: relative !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  background: var(--surface) !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+  border-radius: var(--radius-sm) !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  transition: all var(--transition) !important;
+  line-height: 1 !important;
 }
 
-.notification-btn:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-hover);
+button.notification-btn:hover {
+  background: var(--primary-lighter) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.1) !important;
 }
 
 .notification-count {
@@ -189,6 +198,7 @@ html, body {
   padding: 0 4px;
   border: 2px solid var(--surface);
   line-height: 1;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
 }
 
 /* ============================================
@@ -201,7 +211,7 @@ html, body {
   width: 320px;
   max-width: calc(100vw - 32px);
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: var(--radius);
   padding: var(--space-2);
   box-shadow: var(--shadow-xl);
@@ -244,34 +254,41 @@ html, body {
 }
 
 /* ============================================
-   LOGOUT BUTTON
+   LOGOUT BUTTON & OVERRIDES
    ============================================ */
-.logout-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  white-space: nowrap;
-  height: 40px;
+/* Override leaking button:nth-of-type(1) / button:nth-of-type(2) styles from profile.css */
+button.logout-btn {
+  background: var(--surface) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  padding: var(--space-2) var(--space-4) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  border-radius: var(--radius-sm) !important;
+  width: auto !important;
+  color: var(--text-secondary) !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  transition: all var(--transition) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: var(--space-1) !important;
+  white-space: nowrap !important;
+  height: 40px !important;
 }
 
-.logout-btn:hover {
-  border-color: var(--red);
-  color: var(--red);
-  background: var(--red-light);
+button.logout-btn:hover {
+  border-color: var(--red) !important;
+  color: var(--red) !important;
+  background: var(--red-light) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08) !important;
 }
 
-.logout-btn:active {
-  transform: scale(0.97);
+button.logout-btn:active {
+  transform: scale(0.97) !important;
 }
 
 /* ============================================
@@ -284,51 +301,92 @@ html, body {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0 var(--space-1);
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
+  border-left: 3px solid var(--primary);
+  padding-left: var(--space-3);
+  margin-left: var(--space-1);
 }
 
 /* ============================================
-   NAVIGATION BAR
+   NAVIGATION BAR & BUTTON OVERRIDES
    ============================================ */
 .dashboard-nav {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-4);
   flex-wrap: wrap;
+  margin-top: auto; /* Push navigation section dynamically to the bottom area */
+  padding-top: var(--space-8); /* Breathable separation from matches/empty card */
 }
 
+/* Overriding global button rules leaking from profile.css */
 .dashboard-nav button {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: var(--space-3) var(--space-4);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  transition: background var(--transition), color var(--transition),
-              border-color var(--transition), box-shadow var(--transition);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  white-space: nowrap;
-  box-shadow: var(--shadow-xs);
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  height: auto !important;
+  width: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 14px var(--space-4) !important;
+  border-radius: var(--radius) !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--space-2) !important;
+  white-space: nowrap !important;
+  transition: all var(--transition) !important;
 }
 
-.dashboard-nav button:hover {
-  background: var(--primary-lighter);
-  color: var(--primary);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: var(--shadow-sm);
+/* Button 1: Go to Profile (Override leaked nth-of-type(1)) */
+.dashboard-nav button:nth-of-type(1) {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+  color: var(--text-inverse) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+}
+
+.dashboard-nav button:nth-of-type(1):hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Button 2: Requests (Override leaked nth-of-type(2)) */
+.dashboard-nav button:nth-of-type(2) {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+  color: var(--text-inverse) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25) !important;
+}
+
+.dashboard-nav button:nth-of-type(2):hover {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Button 3: Connections (Override leaked nth-of-type(3)) */
+.dashboard-nav button:nth-of-type(3) {
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%) !important;
+  color: var(--text-inverse) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25) !important;
+}
+
+.dashboard-nav button:nth-of-type(3):hover {
+  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35) !important;
+  transform: translateY(-2px) !important;
 }
 
 .dashboard-nav button:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.98) !important;
 }
 
 /* ============================================
@@ -342,8 +400,13 @@ html, body {
   font-weight: 500;
   background: var(--surface);
   border-radius: var(--radius-lg);
-  border: 1px dashed rgba(0, 0, 0, 0.08);
+  border: 1px dashed rgba(99, 102, 241, 0.25);
   box-shadow: var(--shadow-xs);
+  min-height: 280px; /* Gives balanced vertical screen presence to prevent too much empty bottom space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .no-chat::before {
@@ -355,7 +418,7 @@ html, body {
 }
 
 /* ============================================
-   MATCHES GRID (override MatchCard.css)
+   MATCHES GRID & CARD OVERRIDES (from MatchCard.css)
    ============================================ */
 .matches-grid {
   display: grid;
@@ -364,6 +427,189 @@ html, body {
   padding: 0;
   max-width: none;
   margin: 0;
+  min-height: 280px; /* Keep grid min-height matching empty state spacing */
+}
+
+/* Custom premium styles for MatchCard inside the Suggested section */
+.matches-grid .match-card {
+  background: var(--surface);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all var(--transition);
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02), 0 2px 4px -2px rgba(15, 23, 42, 0.01);
+  overflow: hidden;
+}
+
+.matches-grid .match-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.08), 0 10px 10px -5px rgba(99, 102, 241, 0.04);
+  background: linear-gradient(180deg, var(--surface) 0%, rgba(248, 250, 252, 0.3) 100%);
+}
+
+.matches-grid .match-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.matches-grid .match-card:hover::before {
+  opacity: 1;
+}
+
+/* Badge override */
+.matches-grid .match-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-1);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* Username/Title override */
+.matches-grid .match-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+/* P/Bio override */
+.matches-grid .match-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-1) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 4.5em; /* uniform content spacing */
+}
+
+/* Skills section override */
+.matches-grid .match-card .skills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.matches-grid .match-card .skills strong {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  min-width: 50px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.matches-grid .match-card .skill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+
+.matches-grid .match-card .skill.have {
+  background: var(--green-light);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.matches-grid .match-card .skill.want {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+/* Override leaking button styles on MatchCard buttons */
+.matches-grid .match-card button.btn {
+  width: 100% !important;
+  margin-top: var(--space-3) !important;
+  margin-bottom: 0 !important;
+  padding: 10px var(--space-4) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-sm) !important;
+  cursor: pointer !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: var(--space-2) !important;
+  text-align: center !important;
+  transition: all var(--transition) !important;
+}
+
+.matches-grid .match-card button.btn.connect {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+  color: var(--text-inverse) !important;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15) !important;
+}
+
+.matches-grid .match-card button.btn.connect:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.matches-grid .match-card button.btn.connect:active {
+  transform: translateY(0) !important;
+}
+
+.matches-grid .match-card button.btn.pending {
+  background: var(--surface-hover) !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+.matches-grid .match-card button.btn.accept {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  color: var(--text-inverse) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15) !important;
+}
+
+.matches-grid .match-card button.btn.accept:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.matches-grid .match-card button.btn.chat {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  color: var(--text-inverse) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+}
+
+.matches-grid .match-card button.btn.chat:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25) !important;
+  transform: translateY(-1px) !important;
 }
 
 /* ============================================
@@ -432,7 +678,7 @@ html, body {
    ============================================ */
 @media (min-width: 481px) {
   .dashboard-container {
-    padding: var(--space-5);
+    padding: var(--space-5) var(--space-5) 44px var(--space-5);
     gap: var(--space-7);
   }
 
@@ -460,7 +706,7 @@ html, body {
    ============================================ */
 @media (min-width: 769px) {
   .dashboard-container {
-    padding: var(--space-8) var(--space-10);
+    padding: var(--space-6) var(--space-10) 48px var(--space-10);
     gap: var(--space-8);
   }
 
@@ -483,7 +729,7 @@ html, body {
 
   .dashboard-nav button {
     font-size: 14px;
-    padding: var(--space-3) var(--space-6);
+    padding: var(--space-3) var(--space-6) !important;
   }
 }
 
@@ -492,7 +738,7 @@ html, body {
    ============================================ */
 @media (min-width: 1025px) {
   .dashboard-container {
-    padding: var(--space-8) var(--space-12);
+    padding: var(--space-6) var(--space-12) 48px var(--space-12);
   }
 
   .matches-grid {
@@ -510,7 +756,7 @@ html, body {
 @media (min-width: 1441px) {
   .dashboard-container {
     max-width: 1440px;
-    padding: var(--space-10) var(--space-16);
+    padding: var(--space-8) var(--space-16) 48px var(--space-16);
   }
 
   .dashboard-header h1 {
