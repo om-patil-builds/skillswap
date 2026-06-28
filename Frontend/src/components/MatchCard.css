@@ -1,454 +1,284 @@
 /* ============================================
-   MATCH CARD — Advanced Responsive Design
+   MATCH CARD — Clean Professional Design
    ============================================ */
-
-:root {
-  /* 🎨 Premium Color Palette */
-  --mc-primary: #6366f1;
-  --mc-primary-light: #818cf8;
-  --mc-primary-dark: #4f46e5;
-  --mc-accent-green: #10b981;
-  --mc-accent-orange: #f59e0b;
-  --mc-accent-red: #ef4444;
-  --mc-bg: #f8fafc;
-  --mc-surface: #ffffff;
-  --mc-text-primary: #1e293b;
-  --mc-text-secondary: #64748b;
-  --mc-border: rgba(148, 163, 184, 0.2);
-  --mc-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --mc-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --mc-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --mc-shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --mc-shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
-  --mc-radius: clamp(12px, 2vw, 20px);
-  --mc-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-
-
 
 /* ============================================
    MATCH CARD CONTAINER
    ============================================ */
-
-.cards{
-   display: flex;
-   gap: 20px;   /* spacing between cards */
-}
-
-
 .match-card {
   position: relative;
-  background: var(--mc-surface);
-  padding: clamp(16px, 3vw, 28px);
-  border-radius: var(--mc-radius);
-  margin: clamp(8px, 1.5vw, 16px) 0;
-  box-shadow: var(--mc-shadow-md);
-  border: 1px solid var(--mc-border);
-  transition: var(--mc-transition);
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
   overflow: hidden;
-  isolation: isolate;
-  
-  /* Glassmorphism fallback for modern browsers */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  
-  /* Subtle gradient overlay */
-  background-image: 
-    radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
 }
 
-/* 🌟 Shimmer border effect on hover */
-.match-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    transparent 40%,
-    var(--mc-primary-light) 50%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 300% 300%;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.match-card:hover::before {
-  opacity: 1;
-  animation: shimmer-border 2s ease infinite;
-}
-
-@keyframes shimmer-border {
-  0% { background-position: 200% 200%; }
-  100% { background-position: -200% -200%; }
-}
-
-/* 🚀 Hover State */
 .match-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: var(--mc-shadow-xl), var(--mc-shadow-glow);
-  border-color: rgba(99, 102, 241, 0.15);
-}
-
-/* Active/Press State */
-.match-card:active {
-  transform: translateY(-2px) scale(0.995);
-  transition-duration: 0.15s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
-   MATCH BADGE — Premium Ribbon Style
+   USERNAME & BIO
    ============================================ */
+.match-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+  padding-right: 80px;
+}
 
+.match-card p {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+/* ============================================
+   MATCH BADGE
+   ============================================ */
 .match-badge {
   position: absolute;
-  top: clamp(10px, 2vw, 16px);
-  right: clamp(10px, 2vw, 16px);
-  background: linear-gradient(135deg, var(--mc-accent-red), #dc2626);
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
-  padding: clamp(4px, 1vw, 6px) clamp(10px, 2vw, 14px);
-  border-radius: 100px;
-  font-size: clamp(11px, 1.2vw, 13px);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
-  box-shadow: 
-    0 4px 12px rgba(239, 68, 68, 0.4),
-    0 0 0 2px rgba(255, 255, 255, 0.2) inset;
-  transition: var(--mc-transition);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
   z-index: 2;
-  
-  /* Pulse animation */
-  animation: badge-pulse 2s ease-in-out infinite;
-}
-
-@keyframes badge-pulse {
-  0%, 100% { box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.2) inset; }
-  50% { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.3) inset; }
-}
-
-.match-card:hover .match-badge {
-  transform: scale(1.05) rotate(2deg);
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  line-height: 1.4;
 }
 
 /* ============================================
-   SKILLS — Modern Chip Design
+   SKILLS SECTION
    ============================================ */
+.skills {
+  margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
 
+.skills strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 2px;
+}
+
+/* ============================================
+   SKILL CHIPS
+   ============================================ */
 .skill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: clamp(5px, 1vw, 8px) clamp(10px, 2vw, 14px);
-  border-radius: 100px;
-  margin: clamp(3px, 0.5vw, 5px);
-  font-size: clamp(11px, 1.1vw, 13px);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.3px;
-  transition: var(--mc-transition);
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease;
   cursor: default;
-  position: relative;
-  overflow: hidden;
 }
 
-/* Dot indicator before skill text */
-.skill::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.6;
-  transition: var(--mc-transition);
-}
-
-.skill:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--mc-shadow-md);
-}
-
-.skill:hover::before {
-  opacity: 1;
-  transform: scale(1.3);
-}
-
-/* ✅ Have Skills — Emerald Theme */
+/* Have Skills — Green */
 .skill.have {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.06));
-  color: var(--mc-accent-green);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.15);
 }
 
 .skill.have:hover {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-  border-color: rgba(16, 185, 129, 0.4);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  background: #d1fae5;
 }
 
-/* 🔥 Want Skills — Amber Theme */
+/* Want Skills — Amber */
 .skill.want {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.06));
-  color: var(--mc-accent-orange);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.15);
 }
 
 .skill.want:hover {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+  background: #fef3c7;
 }
 
 /* ============================================
-   BUTTON — Premium CTA Design
+   ACTION BUTTONS
    ============================================ */
-
-.match-card button {
-  position: relative;
-  margin-top: clamp(12px, 2vw, 20px);
-  padding: clamp(10px, 2vw, 14px) clamp(20px, 4vw, 32px);
+.btn {
+  margin-top: 16px;
+  padding: 10px 20px;
+  border-radius: 10px;
   border: none;
-  background: linear-gradient(135deg, var(--mc-primary), var(--mc-primary-dark));
-  color: white;
-  border-radius: 12px;
   cursor: pointer;
-  font-size: clamp(13px, 1.3vw, 15px);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  transition: var(--mc-transition);
-  overflow: hidden;
-  isolation: isolate;
-  box-shadow: 
-    0 4px 14px rgba(99, 102, 241, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
-  
-  /* Flex centering for icon support */
+  text-align: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
-/* Shine effect */
-.match-card button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.6s ease;
-  z-index: -1;
+.btn:active {
+  transform: scale(0.97);
 }
 
-.match-card button:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 8px 25px rgba(99, 102, 241, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  background: linear-gradient(135deg, var(--mc-primary-light), var(--mc-primary));
+/* Connect — Primary */
+.connect {
+  background: #4f46e5;
+  color: white;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
 }
 
-.match-card button:hover::before {
-  left: 100%;
+.connect:hover {
+  background: #4338ca;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
 }
 
-.match-card button:active {
-  transform: translateY(0) scale(0.98);
-  transition-duration: 0.1s;
+/* Pending — Muted */
+.pending {
+  background: #e5e7eb;
+  color: #6b7280;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* Focus state for accessibility */
-.match-card button:focus-visible {
-  outline: 2px solid var(--mc-primary);
-  outline-offset: 3px;
+/* Accept — Orange */
+.accept {
+  background: #d97706;
+  color: white;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
+}
+
+.accept:hover {
+  background: #b45309;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+}
+
+/* Chat — Green */
+.chat {
+  background: #059669;
+  color: white;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25);
+}
+
+.chat:hover {
+  background: #047857;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+}
+
+/* Focus states for accessibility */
+.btn:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
 }
 
 /* ============================================
-   RESPONSIVE BREAKPOINTS
+   MATCHES GRID
+   ============================================ */
+.matches-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 0;
+  max-width: none;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE
    ============================================ */
 
-/* 📱 Mobile (up to 480px) */
+/* Tablet */
+@media (min-width: 481px) {
+  .matches-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .match-card {
+    padding: 24px;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .matches-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .matches-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .match-card {
+    max-width: none;
+  }
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .match-card {
-    padding: 16px;
-    margin: 8px 0;
-    border-radius: 16px;
+    padding: 18px;
+    border-radius: 12px;
   }
-  
+
   .match-badge {
     font-size: 10px;
-    padding: 3px 8px;
+    padding: 3px 10px;
+    top: 12px;
+    right: 12px;
   }
-  
+
   .skill {
     font-size: 11px;
-    padding: 4px 10px;
+    padding: 3px 10px;
   }
-  
-  .match-card button {
+
+  .btn {
     font-size: 13px;
-    padding: 12px 20px;
-  }
-}
-
-/* 📱 Tablet (481px - 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .match-card {
-    padding: 20px;
-  }
-}
-
-/* 💻 Desktop (769px+) */
-@media (min-width: 769px) {
-  .match-card {
-    max-width: 420px;
-  }
-}
-
-/* 🖥️ Large Screens */
-@media (min-width: 1200px) {
-  .match-card {
-    max-width: 480px;
+    padding: 10px 16px;
   }
 }
 
 /* ============================================
-   DARK MODE SUPPORT (Optional)
+   REDUCED MOTION
    ============================================ */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --mc-bg: #0f172a;
-    --mc-surface: rgba(30, 41, 59, 0.8);
-    --mc-text-primary: #f1f5f9;
-    --mc-text-secondary: #94a3b8;
-    --mc-border: rgba(148, 163, 184, 0.1);
-    --mc-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --mc-shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  }
-  
-  .match-card {
-    background-image: 
-      radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-  }
-}
-
-/* ============================================
-   REDUCED MOTION SUPPORT
-   ============================================ */
-
 @media (prefers-reduced-motion: reduce) {
   .match-card,
-  .match-card::before,
   .match-badge,
   .skill,
-  .match-card button {
-    animation: none !important;
+  .btn {
     transition: none !important;
   }
-  
-  .match-card:hover {
-    transform: none;
-  }
 }
 
-/* ============================================
-   GRID LAYOUT HELPER (Use this in parent)
-   ============================================ */
-
-.matches-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-  gap: clamp(16px, 3vw, 24px);
-  padding: clamp(16px, 4vw, 40px);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* Optional: Staggered entrance animation */
-@keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.match-card {
-  animation: card-enter 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
-}
-
-/* Stagger delay for grid items */
-.matches-grid .match-card:nth-child(1) { animation-delay: 0s; }
-.matches-grid .match-card:nth-child(2) { animation-delay: 0.1s; }
-.matches-grid .match-card:nth-child(3) { animation-delay: 0.2s; }
-.matches-grid .match-card:nth-child(4) { animation-delay: 0.3s; }
-.matches-grid .match-card:nth-child(5) { animation-delay: 0.4s; }
-.matches-grid .match-card:nth-child(6) { animation-delay: 0.5s; }
-
-
-.btn {
-  margin-top: 10px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-/* Different states */
-.connect {
-  background: #4cafef;
-  color: white;
-}
-
-.pending {
-  background: gray;
-  color: white;
-  cursor: not-allowed;
-}
-
-.accept {
-  background: orange;
-  color: white;
-}
-
-.chat {
-  background: #4caf50;
-  color: white;
-}
-
-
-.matches-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
-  padding: 20px;
+/* Legacy .cards container kept for compatibility */
+.cards {
+  display: flex;
+  gap: 20px;
 }
