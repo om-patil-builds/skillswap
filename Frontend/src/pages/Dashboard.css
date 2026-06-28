@@ -1,19 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ============================================
-   DESIGN TOKENS
+   GLOBAL BODY & ROOT OVERRIDES
+   ============================================ */
+html,
+body,
+#root {
+  background-color: #f8fafc !important;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%) !important; /* Soft premium blue-indigo gradient */
+  min-height: 100% !important;
+  width: 100% !important;
+}
+
+/* ============================================
+   DESIGN TOKENS (Premium SaaS Theme)
    ============================================ */
 :root {
   /* Surface & Background */
   --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --surface-active: #e2e8f0;
-  --border: rgba(148, 163, 184, 0.12);
-  --border-hover: rgba(99, 102, 241, 0.25);
+  --surface-hover: #f8fafc;
+  --surface-active: #f1f5f9;
+  --border: rgba(148, 163, 184, 0.18);
+  --border-hover: rgba(99, 102, 241, 0.3);
 
   /* Indigo Accent - SaaS Palette */
   --primary: #4f46e5;
+  --primary-hover: #4338ca;
   --primary-light: #6366f1;
   --primary-lighter: #f0f2fe;
   --primary-dark: #3730a3;
@@ -51,14 +64,7 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.02);
-  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
-
-  /* Transition */
+  /* Transitions */
   --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -73,11 +79,8 @@
 }
 
 html, body {
-  height: 100%;
-  width: 100%;
   overflow-x: hidden;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -98,43 +101,44 @@ html, body {
 }
 
 /* ============================================
-   DASHBOARD CONTAINER
+   DASHBOARD CONTAINER (Full-width background wrapper)
    ============================================ */
 .dashboard-container {
   min-height: 100vh;
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
-  background: transparent;
-  /* padding bottom set to 40px so bottom buttons never touch the screen edge */
-  padding: var(--space-4) var(--space-4) 40px var(--space-4);
+  width: 100% !important;
+  max-width: 100% !important;
+  background-color: #f8fafc !important;
+  background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%) !important;
+  padding: var(--space-8) var(--space-4) 48px var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
+  box-sizing: border-box;
 }
 
 /* ============================================
-   HEADER & ACTIONS
+   HEADER & NAVBAR
    ============================================ */
 .dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-4) var(--space-5);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-4) var(--space-6);
+  background: var(--surface);
   border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05); /* Elegant soft shadow */
   gap: var(--space-3);
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px; /* Centers page items */
+  margin: 0 auto;
 }
 
 .dashboard-header h1 {
   font-size: 22px;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
   color: var(--text-primary);
   white-space: nowrap;
   line-height: 1.2;
@@ -147,7 +151,7 @@ html, body {
 }
 
 /* ============================================
-   NOTIFICATION BELL & OVERRIDES FOR LEAKED STYLES
+   NOTIFICATION BELL & LEAK OVERRIDES
    ============================================ */
 .notification-wrapper {
   position: relative;
@@ -169,9 +173,8 @@ button.notification-btn {
   align-items: center !important;
   justify-content: center !important;
   flex-shrink: 0 !important;
-  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
   transition: all var(--transition) !important;
-  line-height: 1 !important;
 }
 
 button.notification-btn:hover {
@@ -214,7 +217,7 @@ button.notification-btn:hover {
   border: 1px solid rgba(226, 232, 240, 0.8);
   border-radius: var(--radius);
   padding: var(--space-2);
-  box-shadow: var(--shadow-xl);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
   z-index: 999;
   color: var(--text-primary);
   max-height: 360px;
@@ -256,7 +259,7 @@ button.notification-btn:hover {
 /* ============================================
    LOGOUT BUTTON & OVERRIDES
    ============================================ */
-/* Override leaking button:nth-of-type(1) / button:nth-of-type(2) styles from profile.css */
+/* Override leaking button:nth-of-type(1)/button:nth-of-type(2) styles from profile.css */
 button.logout-btn {
   background: var(--surface) !important;
   border: 1px solid rgba(226, 232, 240, 0.8) !important;
@@ -270,7 +273,7 @@ button.logout-btn {
   font-family: inherit !important;
   font-size: 13px !important;
   font-weight: 600 !important;
-  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
   transition: all var(--transition) !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -287,39 +290,56 @@ button.logout-btn:hover {
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.08) !important;
 }
 
-button.logout-btn:active {
-  transform: scale(0.97) !important;
-}
-
 /* ============================================
    SECTION TITLE
    ============================================ */
 .chat-title {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 800;
   color: var(--text-primary);
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  letter-spacing: -0.3px;
-  border-left: 3px solid var(--primary);
-  padding-left: var(--space-3);
-  margin-left: var(--space-1);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  letter-spacing: -0.5px;
+  border-left: 4px solid var(--primary);
+  padding-left: var(--space-4);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+/* CSS Pseudo subtitle makes section look incredibly professional & informative */
+.chat-title::after {
+  content: 'Discover potential collaboration partners with matching skillsets';
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0;
+  margin-top: 2px;
 }
 
 /* ============================================
-   NAVIGATION BAR & BUTTON OVERRIDES
+   NAVIGATION BAR & PREMIUM OVERRIDES
    ============================================ */
 .dashboard-nav {
   display: flex;
   align-items: center;
   gap: var(--space-4);
   flex-wrap: wrap;
-  margin-top: auto; /* Push navigation section dynamically to the bottom area */
-  padding-top: var(--space-8); /* Breathable separation from matches/empty card */
+  margin-top: var(--space-10); /* Fixed spacing pushing it down from suggested matches */
+  padding-top: var(--space-6);
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Overriding global button rules leaking from profile.css */
+/* Overriding global button rules leaking from profile.css & making all 3 buttons look identical */
 .dashboard-nav button {
   flex: 1 1 0 !important;
   min-width: 0 !important;
@@ -327,13 +347,13 @@ button.logout-btn:active {
   width: auto !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  padding: 14px var(--space-4) !important;
+  padding: 15px var(--space-4) !important;
   border-radius: var(--radius) !important;
   cursor: pointer !important;
   font-family: inherit !important;
   font-size: 13px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
+  letter-spacing: 0.6px !important;
   text-transform: uppercase !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -341,47 +361,17 @@ button.logout-btn:active {
   gap: var(--space-2) !important;
   white-space: nowrap !important;
   transition: all var(--transition) !important;
-}
-
-/* Button 1: Go to Profile (Override leaked nth-of-type(1)) */
-.dashboard-nav button:nth-of-type(1) {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+  
+  /* Solid Elegant Color */
+  background: var(--primary) !important;
   color: var(--text-inverse) !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05) !important;
 }
 
-.dashboard-nav button:nth-of-type(1):hover {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Button 2: Requests (Override leaked nth-of-type(2)) */
-.dashboard-nav button:nth-of-type(2) {
-  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
-  color: var(--text-inverse) !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25) !important;
-}
-
-.dashboard-nav button:nth-of-type(2):hover {
-  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
-  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Button 3: Connections (Override leaked nth-of-type(3)) */
-.dashboard-nav button:nth-of-type(3) {
-  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%) !important;
-  color: var(--text-inverse) !important;
-  border: none !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25) !important;
-}
-
-.dashboard-nav button:nth-of-type(3):hover {
-  background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35) !important;
+.dashboard-nav button:hover {
+  background: var(--primary-hover) !important;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.1) !important;
   transform: translateY(-2px) !important;
 }
 
@@ -390,50 +380,65 @@ button.logout-btn:active {
 }
 
 /* ============================================
-   NO CHAT / EMPTY STATE
+   NO CHAT / EMPTY STATE (Premium soft indigo card)
    ============================================ */
 .no-chat {
   text-align: center;
   padding: var(--space-12) var(--space-6);
   color: var(--text-muted);
   font-size: 14px;
-  font-weight: 500;
-  background: var(--surface);
+  font-weight: 600;
+  background: #eef2ff; /* Soft tinted solid background color */
   border-radius: var(--radius-lg);
-  border: 1px dashed rgba(99, 102, 241, 0.25);
-  box-shadow: var(--shadow-xs);
-  min-height: 280px; /* Gives balanced vertical screen presence to prevent too much empty bottom space */
+  border: 1px dashed rgba(99, 102, 241, 0.4);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.02);
+  min-height: 320px; /* Balanced screen height */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .no-chat::before {
   content: '📭';
   display: block;
-  font-size: 36px;
-  margin-bottom: var(--space-3);
-  opacity: 0.5;
+  font-size: 40px;
+  margin-bottom: var(--space-4);
+  opacity: 0.8;
+}
+
+.no-chat::after {
+  content: 'Check back later or update your profile details to match with developers.';
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  max-width: 320px;
 }
 
 /* ============================================
-   MATCHES GRID & CARD OVERRIDES (from MatchCard.css)
+   MATCHES GRID & CARD OVERRIDES (Slate card background)
    ============================================ */
 .matches-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-4);
+  gap: var(--space-6);
   padding: 0;
-  max-width: none;
-  margin: 0;
-  min-height: 280px; /* Keep grid min-height matching empty state spacing */
+  margin: 0 auto;
+  min-height: 320px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 /* Custom premium styles for MatchCard inside the Suggested section */
 .matches-grid .match-card {
-  background: var(--surface);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: var(--surface); /* Keep cards white */
+  border: 1px solid rgba(226, 232, 240, 1); /* Elegant soft border */
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   position: relative;
@@ -441,15 +446,14 @@ button.logout-btn:active {
   flex-direction: column;
   gap: var(--space-4);
   transition: all var(--transition);
-  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02), 0 2px 4px -2px rgba(15, 23, 42, 0.01);
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05); /* Elegant shadows */
   overflow: hidden;
 }
 
 .matches-grid .match-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(99, 102, 241, 0.25);
-  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.08), 0 10px 10px -5px rgba(99, 102, 241, 0.04);
-  background: linear-gradient(180deg, var(--surface) 0%, rgba(248, 250, 252, 0.3) 100%);
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
 }
 
 .matches-grid .match-card::before {
@@ -459,7 +463,7 @@ button.logout-btn:active {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  background: var(--primary);
   opacity: 0;
   transition: opacity var(--transition);
 }
@@ -485,11 +489,11 @@ button.logout-btn:active {
 
 /* Username/Title override */
 .matches-grid .match-card h3 {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.3px;
 }
 
 /* P/Bio override */
@@ -502,7 +506,7 @@ button.logout-btn:active {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  height: 4.5em; /* uniform content spacing */
+  height: 4.5em; /* fixed text height */
 }
 
 /* Skills section override */
@@ -517,9 +521,9 @@ button.logout-btn:active {
 }
 
 .matches-grid .match-card .skills strong {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   min-width: 50px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -534,15 +538,15 @@ button.logout-btn:active {
 }
 
 .matches-grid .match-card .skill.have {
-  background: var(--green-light);
-  color: #065f46;
+  background: rgba(16, 185, 129, 0.06);
+  color: #047857;
   border: 1px solid rgba(16, 185, 129, 0.15);
 }
 
 .matches-grid .match-card .skill.want {
-  background: #eff6ff;
-  color: #1e40af;
-  border: 1px solid rgba(59, 130, 246, 0.15);
+  background: rgba(99, 102, 241, 0.06);
+  color: #4f46e5;
+  border: 1px solid rgba(99, 102, 241, 0.15);
 }
 
 /* Override leaking button styles on MatchCard buttons */
@@ -550,7 +554,7 @@ button.logout-btn:active {
   width: 100% !important;
   margin-top: var(--space-3) !important;
   margin-bottom: 0 !important;
-  padding: 10px var(--space-4) !important;
+  padding: 12px var(--space-4) !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   border-radius: var(--radius-sm) !important;
@@ -565,14 +569,14 @@ button.logout-btn:active {
 }
 
 .matches-grid .match-card button.btn.connect {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+  background: var(--primary) !important;
   color: var(--text-inverse) !important;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15) !important;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15) !important;
 }
 
 .matches-grid .match-card button.btn.connect:hover {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25) !important;
+  background: var(--primary-hover) !important;
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.25) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -589,26 +593,26 @@ button.logout-btn:active {
 }
 
 .matches-grid .match-card button.btn.accept {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  background: #10b981 !important;
   color: var(--text-inverse) !important;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15) !important;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.15) !important;
 }
 
 .matches-grid .match-card button.btn.accept:hover {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25) !important;
+  background: #059669 !important;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.25) !important;
   transform: translateY(-1px) !important;
 }
 
 .matches-grid .match-card button.btn.chat {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  background: #3b82f6 !important;
   color: var(--text-inverse) !important;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.15) !important;
 }
 
 .matches-grid .match-card button.btn.chat:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25) !important;
+  background: #2563eb !important;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.25) !important;
   transform: translateY(-1px) !important;
 }
 
@@ -678,8 +682,8 @@ button.logout-btn:active {
    ============================================ */
 @media (min-width: 481px) {
   .dashboard-container {
-    padding: var(--space-5) var(--space-5) 44px var(--space-5);
-    gap: var(--space-7);
+    padding: var(--space-8) var(--space-5) 48px var(--space-5);
+    gap: var(--space-8);
   }
 
   .dashboard-header {
@@ -697,7 +701,7 @@ button.logout-btn:active {
   }
 
   .chat-title {
-    font-size: 20px;
+    font-size: 22px;
   }
 }
 
@@ -706,8 +710,8 @@ button.logout-btn:active {
    ============================================ */
 @media (min-width: 769px) {
   .dashboard-container {
-    padding: var(--space-6) var(--space-10) 48px var(--space-10);
-    gap: var(--space-8);
+    padding: var(--space-10) var(--space-10) 48px var(--space-10);
+    gap: var(--space-10);
   }
 
   .dashboard-header {
@@ -738,7 +742,7 @@ button.logout-btn:active {
    ============================================ */
 @media (min-width: 1025px) {
   .dashboard-container {
-    padding: var(--space-6) var(--space-12) 48px var(--space-12);
+    padding: var(--space-10) var(--space-12) 48px var(--space-12);
   }
 
   .matches-grid {
@@ -755,8 +759,8 @@ button.logout-btn:active {
    ============================================ */
 @media (min-width: 1441px) {
   .dashboard-container {
-    max-width: 1440px;
-    padding: var(--space-8) var(--space-16) 48px var(--space-16);
+    max-width: 100% !important;
+    padding: var(--space-12) var(--space-16) 48px var(--space-16);
   }
 
   .dashboard-header h1 {
@@ -764,7 +768,7 @@ button.logout-btn:active {
   }
 
   .chat-title {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
