@@ -328,10 +328,10 @@ button.logout-btn:hover {
    ============================================ */
 .dashboard-nav {
   display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  margin-top: var(--space-10); /* Fixed spacing pushing it down from suggested matches */
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  margin-top: var(--space-10);
   padding-top: var(--space-6);
   width: 100%;
   max-width: 1200px;
@@ -339,12 +339,9 @@ button.logout-btn:hover {
   margin-right: auto;
 }
 
-/* Overriding global button rules leaking from profile.css & making all 3 buttons look identical */
 .dashboard-nav button {
-  flex: 1 1 0 !important;
-  min-width: 0 !important;
-  height: auto !important;
-  width: auto !important;
+  width: 100% !important;
+  flex: none !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding: 15px var(--space-4) !important;
@@ -361,8 +358,6 @@ button.logout-btn:hover {
   gap: var(--space-2) !important;
   white-space: nowrap !important;
   transition: all var(--transition) !important;
-  
-  /* Solid Elegant Color */
   background: var(--primary) !important;
   color: var(--text-inverse) !important;
   border: 1px solid transparent !important;
@@ -377,6 +372,29 @@ button.logout-btn:hover {
 
 .dashboard-nav button:active {
   transform: translateY(0) scale(0.98) !important;
+}
+
+@media (min-width: 768px) {
+  .dashboard-nav {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+
+  .dashboard-nav button {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-nav {
+    gap: var(--space-2);
+  }
+
+  .dashboard-nav button {
+    padding: 13px var(--space-3) !important;
+    font-size: 12px !important;
+  }
 }
 
 /* ============================================
@@ -702,6 +720,16 @@ button.logout-btn:hover {
 
   .chat-title {
     font-size: 22px;
+  }
+
+  .dashboard-nav {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+
+  .dashboard-nav button {
+    flex: 1 1 0 !important;
+    width: auto !important;
   }
 }
 
