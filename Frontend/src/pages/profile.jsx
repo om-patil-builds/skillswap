@@ -21,17 +21,31 @@ function Profile() {
     fetchProfile();
   }, []);
 
-  if (!user) return <p className="loading">Loading profile...</p>;
+  if (!user) {
+    return (
+      <div className="profile-page">
+        <div className="profile-loading">Loading profile...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="profile-page">
-      <h2 className="page-header">My Profile 👤</h2>
+      <div className="profile-page-shell">
+        <div className="page-heading">
+          <p className="eyebrow">SkillSwap workspace</p>
+          <h2>My Profile</h2>
+          <p className="page-subtitle">
+            Keep your professional profile polished and easy to discover.
+          </p>
+        </div>
 
-      {edit ? (
-        <EditProfileForm user={user} setEdit={setEdit} />
-      ) : (
-        <ProfileCard user={user} setEdit={setEdit} />
-      )}
+        {edit ? (
+          <EditProfileForm user={user} setEdit={setEdit} refresh={fetchProfile} />
+        ) : (
+          <ProfileCard user={user} setEdit={setEdit} />
+        )}
+      </div>
     </div>
   );
 }

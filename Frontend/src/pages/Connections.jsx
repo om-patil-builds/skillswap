@@ -21,31 +21,53 @@ function Connections() {
   }, []);
 
   return (
-    <div className="connections-container">
-      <h2>Your Connections 🤝</h2>
-
-      {users.length === 0 ? (
-        <p className="empty">No connections yet</p>
-      ) : (
-        users.map((user) => (
-          <div key={user._id} className="connection-card">
-
-            <div className="info">
-              <h3>{user.username}</h3>
-              <p>{user.email}</p>
-              <p><b>Skills:</b> {user.skillsHave?.join(", ")}</p>
-            </div>
-
-            <button
-              className="chat-btn"
-              onClick={() => navigate(`/chat/${user._id}`)}
-            >
-              Chat 💬
-            </button>
-
+    <div className="connections-page">
+      <div className="connections-shell">
+        <div className="connections-header">
+          <div>
+            <p className="page-eyebrow">Your network</p>
+            <h2>Your Connections</h2>
+            <p className="page-subtitle">
+              Continue conversations with the people you’ve already connected with.
+            </p>
           </div>
-        ))
-      )}
+          <div className="connections-pill">{users.length} connected</div>
+        </div>
+
+        {users.length === 0 ? (
+          <div className="connections-state empty">No connections yet</div>
+        ) : (
+          <div className="connections-list">
+            {users.map((user) => {
+              const skills = Array.isArray(user.skillsHave) ? user.skillsHave : [];
+
+              return (
+                <div key={user._id} className="connection-card">
+                  <div className="info">
+                    <div className="avatar-badge">
+                      {(user.username || "U").charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <h3>{user.username || "Unknown user"}</h3>
+                      <p>{user.email || "No email provided"}</p>
+                      <p>
+                        <b>Skills:</b> {skills.length > 0 ? skills.join(", ") : "No skills listed"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    className="chat-btn"
+                    onClick={() => navigate(`/chat/${user._id}`)}
+                  >
+                    Open chat
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
